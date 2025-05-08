@@ -1,7 +1,10 @@
 package com.activityspring.activity.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,8 +15,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "cities")
 public class City {
     
     @Id
@@ -37,7 +42,8 @@ public class City {
     private String nameCity;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    private List<School> schools;
+    @JsonManagedReference
+    private List<School> schools = new ArrayList<>();
 
     public City() {
     }
